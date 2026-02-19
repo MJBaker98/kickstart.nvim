@@ -4,44 +4,6 @@
 -- See the kickstart.nvim README for more information
 return {
   {
-    'jiaoshijie/undotree',
-    dependencies = 'nvim-lua/plenary.nvim',
-    config = true,
-    keys = {
-      { '<leader>u', "<cmd>lua require('undotree').toggle()<cr>" },
-    },
-  },
-  {
-    'coffebar/neovim-project',
-    opts = {
-      projects = { -- define project roots
-        '~/projects/*',
-        '~/.config/*',
-      },
-      picker = {
-        type = 'telescope', -- one of "telescope", "fzf-lua", or "snacks"
-      },
-      last_session_on_startup = false,
-      dashboard_mode = true,
-    },
-    init = function()
-      -- enable saving the state of plugins in the session
-      vim.opt.sessionoptions:append 'globals' -- save global variables that start with an uppercase letter and contain at least one lowercase letter.
-    end,
-    dependencies = {
-      { 'nvim-lua/plenary.nvim' },
-      -- optional picker
-      { 'nvim-telescope/telescope.nvim', tag = '0.1.4' },
-      -- optional picker
-      { 'ibhagwan/fzf-lua' },
-      -- optional picker
-      { 'folke/snacks.nvim' },
-      { 'Shatur/neovim-session-manager' },
-    },
-    lazy = false,
-    priority = 1000,
-  },
-  {
     'folke/todo-comments.nvim',
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = {
@@ -64,44 +26,6 @@ return {
       --   If not available, we use `mini` as the fallback
       'rcarriga/nvim-notify',
     },
-  },
-  {
-    'nvimdev/dashboard-nvim',
-    event = 'VimEnter',
-    config = function()
-      require('dashboard').setup {
-        theme = 'hyper',
-        config = {
-          week_header = {
-            enable = true,
-          },
-          shortcut = {
-            { desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
-            {
-              icon = ' ',
-              icon_hl = '@variable',
-              desc = 'Files',
-              group = 'Label',
-              action = 'Telescope find_files',
-              key = 'f',
-            },
-            {
-              desc = ' Apps',
-              group = 'DiagnosticHint',
-              action = 'Telescope app',
-              key = 'a',
-            },
-            {
-              desc = ' dotfiles',
-              group = 'Number',
-              action = 'Telescope dotfiles',
-              key = 'd',
-            },
-          },
-        },
-      }
-    end,
-    dependencies = { { 'nvim-tree/nvim-web-devicons' } },
   },
   {
     'linux-cultist/venv-selector.nvim',
