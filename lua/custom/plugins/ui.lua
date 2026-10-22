@@ -22,14 +22,14 @@ starter.setup {
   -- If `nil` (default), default items will be used (see |mini.starter|).
   items = {
     {
-      name = "Restore last session",
+      name = 'Restore last session',
       action = [[lua require("persistence").load()]],
-      section = "Sessions",
+      section = 'Sessions',
     },
     {
-      name = "Select session",
+      name = 'Select session',
       action = [[lua require("persistence").select()]],
-      section = "Sessions",
+      section = 'Sessions',
     },
     starter.sections.builtin_actions(),
     starter.sections.recent_files(3, false),
@@ -42,7 +42,7 @@ starter.setup {
   -- |mini.starter| and |MiniStarter.content| for more details).
   content_hooks = {
     starter.gen_hook.adding_bullet(),
-    starter.gen_hook.indexing('all', { 'Builtin actions' }),
+    starter.gen_hook.indexing('all', { 'Sessions','Builtin actions' }),
     starter.gen_hook.padding(3, 2),
     starter.gen_hook.aligning('center', 'center'),
   },
@@ -50,12 +50,12 @@ starter.setup {
   -- Header to be displayed before items. Converted to single string via
   -- `tostring` (use `\n` to display several lines). If function, it is
   -- evaluated first. If `nil` (default), polite greeting will be used.
-  header = nil,
+  header = os.date(),
 
   -- Footer to be displayed after items. Converted to single string via
   -- `tostring` (use `\n` to display several lines). If function, it is
   -- evaluated first. If `nil` (default), default usage help will be shown.
-  footer = nil,
+  footer = ' ',
 
   -- Characters to update query. Each character will have special buffer
   -- mapping overriding your global ones. Be careful to not add `:` as it
@@ -66,36 +66,19 @@ starter.setup {
   silent = false,
 }
 
---
--- vim.pack.add { 'https://github.com/nvimdev/dashboard-nvim.git' }
--- require('dashboard').setup {
---     theme = 'hyper',
---     config = {
---       week_header = {
---        enable = true,
---       },
---       shortcut = {
---         { desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
---         {
---           icon = ' ',
---           icon_hl = '@variable',
---           desc = 'Files',
---           group = 'Label',
---           action = 'Telescope find_files',
---           key = 'f',
---         },
---         {
---           desc = ' Apps',
---           group = 'DiagnosticHint',
---           action = 'Telescope app',
---           key = 'a',
---         },
---         {
---           desc = ' dotfiles',
---           group = 'Number',
---           action = 'Telescope dotfiles',
---           key = 'd',
---         },
---       },
---     },
---   }
+---@param repo string
+---@return string
+local function gh(repo) return 'https://github.com/' .. repo end
+
+vim.pack.add { gh 'folke/flash.nvim' }
+require('flash').setup {}
+
+vim.keymap.set({ 'n', 'x', 'o' }, 's', function() require('flash').jump() end, { desc = 'Flash' })
+vim.keymap.set({ 'n', 'x', 'o' }, 'S', function() require('flash').treesitter() end, { desc = 'Flash treesitter' })
+vim.keymap.set({ 'o' }, 'r', function() require('flash').remote() end, { desc = 'Remote Flash' })
+vim.keymap.set({ 'o', 'x' }, 'R', function() require('flash').treesitter_search() end, { desc = 'Treesitter Search' })
+vim.keymap.set({ 'c' }, '<c-s>', function() require('flash').toggle() end, { desc = 'Toggle Flash Search' })
+
+vim.pack.add { 'https://github.com/MagicDuck/grug-far.nvim.git' }
+require('grug-far').setup {}
+vim.keymap.set({ 'v', 'n', 'o' }, '<leader>sr', function() require('grug-far').open() end, { desc = 'Search & Replace' })
