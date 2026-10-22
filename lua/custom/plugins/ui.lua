@@ -7,6 +7,9 @@ vim.keymap.set('n', '<leader>pl', function() persistence.load { last = true } en
 vim.keymap.set('n', '<leader>pd', function() persistence.stop() end)
 
 local starter = require 'mini.starter'
+
+vim.pack.add { 'https://github.com/nvim-telescope/telescope-file-browser.nvim' }
+
 starter.setup {
   -- Whether to open starter buffer on VimEnter. Not opened if Neovim was
   -- started with intent to show something else.
@@ -42,7 +45,7 @@ starter.setup {
   -- |mini.starter| and |MiniStarter.content| for more details).
   content_hooks = {
     starter.gen_hook.adding_bullet(),
-    starter.gen_hook.indexing('all', { 'Sessions','Builtin actions' }),
+    starter.gen_hook.indexing('all', { 'Sessions', 'Builtin actions' }),
     starter.gen_hook.padding(3, 2),
     starter.gen_hook.aligning('center', 'center'),
   },
