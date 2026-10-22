@@ -12,3 +12,12 @@ for file_name, type in vim.fs.dir(plugins_dir, { follow = true }) do
     require('custom.plugins.' .. module)
   end
 end
+
+-- some other mini stuff I want to include
+require('mini.files').setup {}
+require('mini.keymap').setup {}
+
+local minifiles_toggle = function(...)
+  if MiniFiles.close() == nil then MiniFiles.open(...) end
+end
+vim.keymap.set('n', '\\', minifiles_toggle, { desc = 'toggle mini files' })
