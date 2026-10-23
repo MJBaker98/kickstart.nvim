@@ -73,6 +73,7 @@ starter.setup {
 ---@return string
 local function gh(repo) return 'https://github.com/' .. repo end
 
+--- ################### Flash
 vim.pack.add { gh 'folke/flash.nvim' }
 require('flash').setup {}
 
@@ -82,6 +83,38 @@ vim.keymap.set({ 'o' }, 'r', function() require('flash').remote() end, { desc = 
 vim.keymap.set({ 'o', 'x' }, 'R', function() require('flash').treesitter_search() end, { desc = 'Treesitter Search' })
 vim.keymap.set({ 'c' }, '<c-s>', function() require('flash').toggle() end, { desc = 'Toggle Flash Search' })
 
-vim.pack.add { 'https://github.com/MagicDuck/grug-far.nvim.git' }
+--- ################### Grug far
+vim.pack.add { gh 'MagicDuck/grug-far.nvim' }
 require('grug-far').setup {}
 vim.keymap.set({ 'v', 'n', 'o' }, '<leader>sr', function() require('grug-far').open() end, { desc = 'Search & Replace' })
+
+vim.pack.add {
+  'https://github.com/nvim-tree/nvim-web-devicons',
+  'https://github.com/nvim-lualine/lualine.nvim',
+}
+require('lualine').setup {
+  options = {
+    section_separators = { left = '', right = '' },
+    component_separators = { left = '', right = '' },
+    sections = {
+      lualine_a = { { 'mode', separator = { left = '' }, right_padding = 2 } },
+      lualine_b = { 'branch', 'diff', 'diagnostics' },
+      lualine_c = { 'filename' },
+      lualine_x = { 'encoding', 'fileformat', 'filetype' },
+      lualine_y = { 'progress' },
+      lualine_z = { 'location' },
+    },
+    inactive_sections = {
+      lualine_a = {},
+      lualine_b = {},
+      lualine_c = { 'filename' },
+      lualine_x = { 'location' },
+      lualine_y = {},
+      lualine_z = {},
+    },
+    tabline = {},
+    winbar = {},
+    inactive_winbar = {},
+    extensions = {},
+  },
+}
